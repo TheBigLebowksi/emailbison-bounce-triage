@@ -1,0 +1,1041 @@
+{
+ "version": "2026-10-29",
+ "notes": "Matched against the remote server's response (diagnostic text), not the whole NDR. An entry matches when every field it sets matches: provider (who rejected), basic (550), enhanced (5.1.1 or a range), tag (Yahoo [TSS04]), text (case-insensitive regex). The most specific match wins. Categories map to the 8 causes in rules.json, plus 'unknown'. 'headlines' match the human-readable notice itself and are used only when nothing else matches, e.g. when a sequencer cuts the text off before the server's response. They count as weaker evidence than a code.",
+ "sources": {
+  "google": "https://knowledge.workspace.google.com/admin/support/troubleshooting/gmail-smtp-errors-and-codes",
+  "microsoft": "https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/non-delivery-reports-in-exchange-online/non-delivery-reports-in-exchange-online",
+  "microsoft_515": "https://support.microsoft.com/en-us/outlook/fix-ndr-error-550-5-7-515-in-outlook-com",
+  "yahoo": "https://senders.yahooinc.com/smtp-error-codes/",
+  "mimecast": "https://mimecastsupport.zendesk.com/hc/en-us/articles/34000623043987-Content-Examination-Policy",
+  "proofpoint": "https://ipcheck.proofpoint.com",
+  "barracuda": "https://www.barracudacentral.org/rbl",
+  "spamhaus": "https://www.spamhaus.org/blocklists/",
+  "rfc3463": "https://www.rfc-editor.org/rfc/rfc3463",
+  "highticketai": "https://highticketaisystems.com/blog/cold-email-bounce-rate-causes-fixes",
+  "revsculpt": "https://revsculpt.com/articles/cold-email-bounce-rate"
+ },
+ "entries": [
+  {
+   "id": "any-greylist",
+   "provider": "any",
+   "text": "greylist|graylist",
+   "meaning": "Greylisted: first contact from an unknown sender, retried automatically",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None. The sending server retries and the retry is normally accepted.",
+   "source": "highticketai"
+  },
+  {
+   "id": "g-511",
+   "provider": "google",
+   "enhanced": "5.1.1",
+   "meaning": "Mailbox does not exist",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress the address; re-verify its list source.",
+   "source": "google"
+  },
+  {
+   "id": "g-512",
+   "provider": "google",
+   "enhanced": "5.1.2",
+   "meaning": "Recipient domain not found",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress; the domain is dead or mistyped.",
+   "source": "google"
+  },
+  {
+   "id": "g-521-inactive",
+   "provider": "google",
+   "enhanced": "5.2.1",
+   "text": "inactive|disabled",
+   "meaning": "Account inactive or disabled",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress; abandoned mailbox.",
+   "source": "google"
+  },
+  {
+   "id": "g-521-rate",
+   "provider": "google",
+   "enhanced": "5.2.1",
+   "text": "receiving (email|mail) at a rate",
+   "meaning": "Recipient is receiving mail too fast",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None; recipient-side load.",
+   "source": "google"
+  },
+  {
+   "id": "g-421-rate",
+   "provider": "google",
+   "enhanced": "4.2.1",
+   "meaning": "Recipient receiving mail too quickly",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None; retry later.",
+   "source": "google"
+  },
+  {
+   "id": "g-422",
+   "provider": "google",
+   "enhanced": "4.2.2",
+   "meaning": "Recipient inbox out of storage (temporary)",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None; retry later.",
+   "source": "google"
+  },
+  {
+   "id": "g-522",
+   "provider": "google",
+   "enhanced": "5.2.2",
+   "meaning": "Inbox full and inactive",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress; full and inactive means abandoned.",
+   "source": "google"
+  },
+  {
+   "id": "g-470-domrep",
+   "provider": "google",
+   "enhanced": "4.7.0",
+   "text": "low reputation of the sending domain",
+   "meaning": "Very low sending-domain reputation (deferral)",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Rest the domain; cut volume; check spam rate in Postmaster.",
+   "source": "google"
+  },
+  {
+   "id": "g-470-iprep",
+   "provider": "google",
+   "enhanced": "4.7.0",
+   "text": "low reputation of the sending IP",
+   "meaning": "Very low sending-IP reputation (deferral)",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Shared Google IP for Workspace senders: look at domain spam rate instead.",
+   "source": "google"
+  },
+  {
+   "id": "g-470-content",
+   "provider": "google",
+   "enhanced": "4.7.0",
+   "text": "nature of the content or the links",
+   "meaning": "Suspicious content or links",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Strip links/tracking, rewrite the variant.",
+   "source": "google"
+  },
+  {
+   "id": "g-470-ptr",
+   "provider": "google",
+   "enhanced": "4.7.0",
+   "text": "PTR record",
+   "meaning": "Sending IP has no matching PTR",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix reverse DNS on the sending IP (SMTP senders only).",
+   "source": "google"
+  },
+  {
+   "id": "g-571-domrep",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "low reputation of the sending domain",
+   "meaning": "Blocked: very low sending-domain reputation",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Pause and rest the domain; swap in a warm one.",
+   "source": "google"
+  },
+  {
+   "id": "g-571-iprep",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "low reputation of the sending IP",
+   "meaning": "Blocked: very low sending-IP reputation",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Check IP blocklists; for Workspace senders check the domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-571-unsolicited",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "likely unsolicited",
+   "meaning": "Blocked as likely unsolicited (spam signals)",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Pause the variant; plain text; no links in step 1.",
+   "source": "google"
+  },
+  {
+   "id": "g-571-policy",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "has a policy that prohibits|gcdp",
+   "meaning": "Recipient Workspace admin policy blocks this mail",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Recipient org rule; suppress that domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-571-ratelimited",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "has been rate limited",
+   "meaning": "Rate limited",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Lower per-inbox daily volume.",
+   "source": "google"
+  },
+  {
+   "id": "g-571-rfc",
+   "provider": "google",
+   "enhanced": "5.7.1",
+   "text": "RFC 5322|Message-ID|From: header",
+   "meaning": "Message not RFC 5322 compliant",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Fix headers in the sending tool/template.",
+   "source": "google"
+  },
+  {
+   "id": "g-570-security",
+   "provider": "google",
+   "enhanced": "5.7.0",
+   "text": "potential security issue",
+   "meaning": "Content presents a security issue (attachment/link)",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Remove attachments and risky links.",
+   "source": "google"
+  },
+  {
+   "id": "g-570-denied",
+   "provider": "google",
+   "enhanced": "5.7.0",
+   "text": "sending denied|suspended due to abuse|relay denied",
+   "meaning": "Sending account denied or suspended",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Pause the inbox; check Workspace admin for suspension.",
+   "source": "google"
+  },
+  {
+   "id": "g-4726",
+   "provider": "google",
+   "enhanced": "4.7.26",
+   "meaning": "Rate limited: unauthenticated (SPF and DKIM both failed) or DMARC temp failure",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Publish SPF and DKIM for the sending domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-5726",
+   "provider": "google",
+   "enhanced": "5.7.26",
+   "meaning": "Blocked: unauthenticated, SPF hard-fail, or DMARC policy failure",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix SPF/DKIM so DMARC aligns.",
+   "source": "google"
+  },
+  {
+   "id": "g-4727",
+   "provider": "google",
+   "enhanced": "4.7.27",
+   "meaning": "Rate limited: SPF did not pass",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix the SPF record.",
+   "source": "google"
+  },
+  {
+   "id": "g-5727",
+   "provider": "google",
+   "enhanced": "5.7.27",
+   "meaning": "Blocked: SPF did not pass",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix the SPF record.",
+   "source": "google"
+  },
+  {
+   "id": "g-4728-url",
+   "provider": "google",
+   "enhanced": "4.7.28",
+   "text": "URL domain",
+   "meaning": "Rate limited: unusual rate of unsolicited mail containing one of your URL domains",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Remove that link/tracking domain from the copy.",
+   "source": "google"
+  },
+  {
+   "id": "g-4728",
+   "provider": "google",
+   "enhanced": "4.7.28",
+   "meaning": "Rate limited: unusual rate of (unsolicited) mail from IP/domain",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Lower daily cap per inbox; slower ramp.",
+   "source": "google"
+  },
+  {
+   "id": "g-5728",
+   "provider": "google",
+   "enhanced": "5.7.28",
+   "meaning": "Blocked: unusual rate of unsolicited mail from your IP",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Stop and rest; volume and complaints too high.",
+   "source": "google"
+  },
+  {
+   "id": "g-4729",
+   "provider": "google",
+   "enhanced": "4.7.29",
+   "meaning": "Rate limited: not using TLS",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Enable TLS on the sending server.",
+   "source": "google"
+  },
+  {
+   "id": "g-4730",
+   "provider": "google",
+   "enhanced": "4.7.30",
+   "meaning": "Rate limited: DKIM did not pass",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Turn on DKIM signing for the domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-5730",
+   "provider": "google",
+   "enhanced": "5.7.30",
+   "meaning": "Blocked: DKIM did not pass",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Turn on DKIM signing for the domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-4732",
+   "provider": "google",
+   "enhanced": "4.7.32",
+   "meaning": "Rate limited: From domain not aligned with SPF or DKIM",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Align the From domain with the DKIM d= or SPF domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-5732",
+   "provider": "google",
+   "enhanced": "5.7.32",
+   "meaning": "Blocked: From domain not aligned with SPF or DKIM",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Align the From domain with the DKIM d= or SPF domain.",
+   "source": "google"
+  },
+  {
+   "id": "g-4740",
+   "provider": "google",
+   "enhanced": "4.7.40",
+   "text": "DMARC",
+   "meaning": "Rate limited: sending domain has no DMARC record/policy",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Publish a DMARC record (p=none is enough to start).",
+   "source": "google"
+  },
+  {
+   "id": "g-5740",
+   "provider": "google",
+   "enhanced": "5.7.40",
+   "text": "DMARC",
+   "meaning": "Blocked: sending domain has no DMARC record/policy",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Publish a DMARC record (p=none is enough to start).",
+   "source": "google"
+  },
+  {
+   "id": "g-5724",
+   "provider": "google",
+   "enhanced": "5.7.24",
+   "meaning": "SPF record has suspicious entries",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Clean up the SPF record.",
+   "source": "google"
+  },
+  {
+   "id": "g-5725",
+   "provider": "google",
+   "enhanced": "5.7.25",
+   "meaning": "Sending IP has no PTR record",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix reverse DNS (SMTP senders only).",
+   "source": "google"
+  },
+  {
+   "id": "g-545",
+   "provider": "google",
+   "enhanced": "5.4.5",
+   "meaning": "Daily user sending limit exceeded",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Pause the inbox for 24h; lower its daily limit.",
+   "source": "google"
+  },
+  {
+   "id": "g-546",
+   "provider": "google",
+   "enhanced": "5.4.6",
+   "meaning": "Mail loop (over 50 hops)",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None.",
+   "source": "google"
+  },
+  {
+   "id": "ms-5110",
+   "provider": "any",
+   "enhanced": "5.1.10",
+   "meaning": "RecipientNotFound (SMTP address lookup failed)",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress; re-verify the source.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-511",
+   "provider": "microsoft",
+   "enhanced": "5.1.1",
+   "meaning": "Bad destination mailbox address",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress; re-verify the source.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-550-unavail",
+   "provider": "microsoft",
+   "enhanced": "5.5.0",
+   "text": "mailbox unavailable",
+   "meaning": "Outlook.com/Hotmail mailbox not found",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-541-dbeb",
+   "provider": "any",
+   "enhanced": "5.4.1",
+   "text": "Recipient address rejected: Access denied",
+   "meaning": "Directory-Based Edge Blocking: recipient unknown in the tenant. Ambiguous: also seen on tenant-level blocks",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "ambiguous": true,
+   "fix": "Suppress the address, but do NOT count it as a verifier miss: the address may be real and the tenant refuses external mail.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-541-relay",
+   "provider": "any",
+   "enhanced": "5.4.1",
+   "text": "Relay Access Denied",
+   "meaning": "Recipient domain misrouted (MX/DNS misconfig)",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None; recipient-side misconfiguration.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-5504",
+   "provider": "any",
+   "enhanced": "5.7.504",
+   "meaning": "Recipient address rejected: Access denied (invalid recipient)",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-571-notauth",
+   "provider": "microsoft",
+   "enhanced": "5.7.1",
+   "text": "not authorized|NotAuthorized|Delivery not authorized",
+   "meaning": "Sender not allowed to mail this recipient/group",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Recipient-side restriction; suppress.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-5133",
+   "provider": "any",
+   "enhanced": "5.7.133",
+   "meaning": "Group rejects external senders",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Suppress group addresses.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-5723",
+   "provider": "any",
+   "enhanced": "5.7.23",
+   "meaning": "Rejected for SPF violation",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix SPF for the sending domain.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57509",
+   "provider": "any",
+   "enhanced": "5.7.509",
+   "meaning": "Sending domain fails DMARC and has p=reject",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix SPF/DKIM alignment before sending again.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57515",
+   "provider": "any",
+   "enhanced": "5.7.515",
+   "meaning": "Sending domain does not meet the required authentication level (Outlook.com bulk rules: SPF + DKIM + DMARC)",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Publish SPF, DKIM and DMARC for the domain.",
+   "source": "microsoft_515"
+  },
+  {
+   "id": "ms-57606",
+   "provider": "any",
+   "enhanced_range": [
+    "5.7.606",
+    "5.7.649"
+   ],
+   "meaning": "Access denied, banned sending IP",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Request delisting at sender.office.com; rest the sender.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57511",
+   "provider": "any",
+   "enhanced": "5.7.511",
+   "meaning": "Banned sender IP",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Email delist@microsoft.com with the NDR.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57708",
+   "provider": "any",
+   "enhanced": "5.7.708",
+   "meaning": "Traffic not accepted from this IP",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Rest the sender; most of the tenant's traffic looks suspicious.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57705",
+   "provider": "any",
+   "enhanced": "5.7.705",
+   "meaning": "Tenant has exceeded threshold (sending tenant banned)",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Whole sending tenant is blocked; stop all its inboxes.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57513",
+   "provider": "any",
+   "enhanced": "5.7.513",
+   "meaning": "Recipient org put your IP on its custom block list",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Suppress that recipient domain.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57507",
+   "provider": "any",
+   "enhanced": "5.7.507",
+   "meaning": "Rejected by recipient org (IP blocked)",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Suppress that recipient domain.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-47650",
+   "provider": "any",
+   "enhanced": "4.7.650",
+   "meaning": "Temporarily rate limited due to IP reputation",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Slow down; lower per-inbox volume to Microsoft.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-475xx",
+   "provider": "any",
+   "enhanced_range": [
+    "4.7.500",
+    "4.7.699"
+   ],
+   "meaning": "Access denied, try again later (suspicious activity, temporary)",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Slow down; spread volume.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-518",
+   "provider": "any",
+   "enhanced": "5.1.8",
+   "meaning": "Bad outbound sender (account blocked for spam)",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Pause the inbox; check the M365 restricted users list.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57501",
+   "provider": "any",
+   "enhanced_range": [
+    "5.7.501",
+    "5.7.503"
+   ],
+   "meaning": "Sending account banned for spam",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Pause the inbox; reset credentials; contact support.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-522-quota",
+   "provider": "any",
+   "enhanced": "5.2.2",
+   "text": "Submission quota exceeded",
+   "meaning": "Sender exceeded its submission rate limit",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Lower the inbox's daily limit.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-522-full",
+   "provider": "any",
+   "enhanced": "5.2.2",
+   "text": "full|quota|storage",
+   "meaning": "Recipient mailbox full",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-5414",
+   "provider": "any",
+   "enhanced": "5.4.14",
+   "meaning": "Routing loop detected",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-447",
+   "provider": "any",
+   "enhanced": "4.4.7",
+   "meaning": "Message expired in queue",
+   "category": "noise",
+   "fault_side": "temporary",
+   "fix": "None.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-57750",
+   "provider": "any",
+   "enhanced": "5.7.750",
+   "meaning": "Tenant blocked from sending from unregistered domains",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Add and verify the sending domain in M365.",
+   "source": "microsoft"
+  },
+  {
+   "id": "ms-5757",
+   "provider": "any",
+   "enhanced": "5.7.57",
+   "meaning": "Client not authenticated (SMTP AUTH)",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox",
+   "fix": "Reconnect the inbox's credentials.",
+   "source": "microsoft"
+  },
+  {
+   "id": "y-tss04",
+   "provider": "any",
+   "tag": "TSS04",
+   "meaning": "Temporarily deferred: unexpected volume or user complaints",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Lower volume to Yahoo/AOL; slower ramp.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-tss09",
+   "provider": "any",
+   "tag": "TSS09",
+   "meaning": "All messages permanently deferred; retrying will not succeed",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Stop sending to Yahoo from this sender; rest it.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-tss11",
+   "provider": "any",
+   "tag": "TSS11",
+   "meaning": "All messages permanently deferred",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Stop sending to Yahoo from this sender; rest it.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-ts01",
+   "provider": "any",
+   "tag": "TS01",
+   "meaning": "Temporarily deferred (complaints/volume)",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Slow down to Yahoo.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-ts02",
+   "provider": "any",
+   "tag": "TS02",
+   "meaning": "Temporarily deferred (local policy)",
+   "category": "throttling",
+   "fault_side": "rate",
+   "fix": "Slow down to Yahoo.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-ts03",
+   "provider": "any",
+   "tag": "TS03",
+   "meaning": "Permanently deferred",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Stop sending to Yahoo from this sender.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-ts07",
+   "provider": "any",
+   "tag": "TS07",
+   "meaning": "Deferred on message characteristics (treated as content)",
+   "category": "content",
+   "fault_side": "content",
+   "ambiguous": true,
+   "fix": "Rewrite the variant; remove links.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-ph01",
+   "provider": "any",
+   "tag": "PH01",
+   "meaning": "Content-based block: not accepted for policy reasons",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Pause the variant; remove links/attachments.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-bl21",
+   "provider": "any",
+   "tag": "BL21|BL23",
+   "meaning": "IP listed by Spamhaus",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Check Spamhaus; request delisting.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-579-auth",
+   "provider": "yahoo",
+   "enhanced": "5.7.9",
+   "text": "unauthenticated|authenticat|DMARC|DKIM",
+   "meaning": "Failed authentication (SPF/DKIM/DMARC)",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix SPF, DKIM and DMARC.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-579-policy",
+   "provider": "yahoo",
+   "enhanced": "5.7.9",
+   "meaning": "Not accepted for policy reasons (often DMARC)",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "ambiguous": true,
+   "fix": "Check DMARC alignment first.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-451-unres",
+   "provider": "any",
+   "text": "unresolvable RFC\\.?5321 from domain|unresolvable RFC\\.?5322",
+   "meaning": "From/MAIL FROM domain does not resolve",
+   "category": "auth",
+   "fault_side": "sender auth",
+   "fix": "Fix DNS (SOA/A/MX) for the sending domain.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-554-nouser",
+   "provider": "any",
+   "text": "doesn't have a (yahoo|aol)\\.com account|user doesn't exist",
+   "meaning": "Yahoo/AOL account does not exist",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress.",
+   "source": "yahoo"
+  },
+  {
+   "id": "y-511",
+   "provider": "yahoo",
+   "enhanced": "5.1.1",
+   "meaning": "Yahoo: not a valid recipient",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress.",
+   "source": "yahoo"
+  },
+  {
+   "id": "mc-adminprohib",
+   "provider": "any",
+   "text": "Administrative prohibition",
+   "meaning": "Mimecast: envelope blocked by recipient policy",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Split this segment out; lower volume to it.",
+   "source": "mimecast"
+  },
+  {
+   "id": "mc-content",
+   "provider": "any",
+   "text": "Content Examination Policy",
+   "meaning": "Mimecast: blocked by content policy",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Rewrite the copy; remove links/attachments.",
+   "source": "mimecast"
+  },
+  {
+   "id": "mc-antispoof",
+   "provider": "any",
+   "text": "Anti-Spoofing policy",
+   "meaning": "Mimecast: header-based anti-spoofing policy",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Recipient policy; suppress that domain.",
+   "source": "mimecast"
+  },
+  {
+   "id": "mc-envblocked",
+   "provider": "any",
+   "text": "Envelope blocked - (User|Domain|Policy) Entry",
+   "meaning": "Mimecast: recipient blocked the sender",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Suppress that recipient/domain.",
+   "source": "mimecast"
+  },
+  {
+   "id": "mc-invalid",
+   "provider": "mimecast",
+   "text": "Invalid Recipient",
+   "meaning": "Mimecast: invalid recipient",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "fix": "Suppress.",
+   "source": "mimecast"
+  },
+  {
+   "id": "pp-policy",
+   "provider": "proofpoint",
+   "text": "blocked by policy|local policy|policy reasons",
+   "meaning": "Proofpoint: blocked by recipient policy",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Split this segment out; lower volume to it.",
+   "source": "proofpoint"
+  },
+  {
+   "id": "pp-ipcheck",
+   "provider": "any",
+   "text": "ipcheck\\.proofpoint\\.com",
+   "meaning": "Proofpoint: sending IP has poor reputation at Proofpoint",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Request review at ipcheck.proofpoint.com; reduce volume to Proofpoint MX.",
+   "source": "proofpoint"
+  },
+  {
+   "id": "bc-rep",
+   "provider": "any",
+   "text": "Barracuda Reputation|b\\.barracudacentral",
+   "meaning": "Barracuda: sender on Barracuda reputation list",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy",
+   "fix": "Request removal at barracudacentral.org; reduce volume.",
+   "source": "barracuda"
+  },
+  {
+   "id": "bc-content",
+   "provider": "barracuda",
+   "text": "content rejected|spam",
+   "meaning": "Barracuda: content flagged as spam",
+   "category": "content",
+   "fault_side": "content",
+   "fix": "Rewrite the copy.",
+   "source": "barracuda"
+  },
+  {
+   "id": "any-spamhaus",
+   "provider": "any",
+   "text": "spamhaus|blocked using |on our block ?list|\\bRBL\\b|rejected because .{0,80}\\blisted\\b|client host \\[[^\\]]*\\] blocked",
+   "meaning": "Sender listed on a DNS blocklist",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation",
+   "fix": "Check which list (Spamhaus/DBL or another RBL); a confirmed DBL listing means retire and replace the domain.",
+   "source": "spamhaus"
+  }
+ ],
+ "keywords": [
+  {
+   "pattern": "greylist|graylist",
+   "category": "noise",
+   "fault_side": "temporary"
+  },
+  {
+   "pattern": "user unknown|no such user|does not exist|recipient not found|unknown recipient|invalid recipient|mailbox unavailable|address rejected|not a valid (mailbox|recipient)|unknown user",
+   "category": "bad_data",
+   "fault_side": "recipient address"
+  },
+  {
+   "pattern": "\\bspf\\b|\\bdkim\\b|\\bdmarc\\b|unauthenticated|authentication",
+   "category": "auth",
+   "fault_side": "sender auth"
+  },
+  {
+   "pattern": "blacklist|blocklist|block list|reputation|listed",
+   "category": "domain_reputation",
+   "fault_side": "sender reputation"
+  },
+  {
+   "pattern": "spam|unsolicited|content|phish|suspicious link",
+   "category": "content",
+   "fault_side": "content"
+  },
+  {
+   "pattern": "administrative|prohibited|blocked by policy|policy violation",
+   "category": "recipient_gateway",
+   "fault_side": "recipient policy"
+  },
+  {
+   "pattern": "rate limit|too many|try again later|deferred|throttl",
+   "category": "throttling",
+   "fault_side": "rate"
+  },
+  {
+   "pattern": "mailbox full|over quota|quota exceeded|out of storage|insufficient storage|loop",
+   "category": "noise",
+   "fault_side": "temporary"
+  },
+  {
+   "pattern": "sending limit|account suspended|account disabled",
+   "category": "sender_mailbox",
+   "fault_side": "sender mailbox"
+  }
+ ],
+ "class_fallbacks": [
+  {
+   "prefix": "5.1.",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "meaning": "RFC 3463 5.1.x: address status"
+  },
+  {
+   "prefix": "5.2.",
+   "category": "noise",
+   "fault_side": "temporary",
+   "meaning": "RFC 3463 5.2.x: mailbox status"
+  },
+  {
+   "prefix": "4.7.",
+   "basic": [
+    "421",
+    "450",
+    "451"
+   ],
+   "category": "throttling",
+   "fault_side": "rate",
+   "meaning": "RFC 3463 4.7.x on 421/450/451: temporary policy deferral"
+  },
+  {
+   "prefix": "4.",
+   "category": "noise",
+   "fault_side": "temporary",
+   "meaning": "RFC 3463 4.x: temporary failure"
+  }
+ ],
+ "headlines": [
+  {
+   "id": "gmail-headline-not-found",
+   "pattern": "address couldn(?:'|&#39;|’)t be found, or is unable to receive mail",
+   "meaning": "Gmail's 'Address not found' notice (the server's code is missing or cut off)",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "source": "google"
+  },
+  {
+   "id": "exchange-headline-not-found",
+   "pattern": "wasn(?:'|&#39;|’)t found at [\\w.-]+\\.",
+   "meaning": "Exchange Online 'wasn't found at' notice (the server's code is missing or cut off)",
+   "category": "bad_data",
+   "fault_side": "recipient address",
+   "source": "microsoft"
+  }
+ ]
+}

@@ -1,0 +1,339 @@
+{
+  "thresholds": {
+    "min_bounces": 10,
+    "min_sends": 200,
+    "min_lift": 1.5,
+    "min_share": 0.5,
+    "code_share": 0.6,
+    "volume_jump": 1.5,
+    "safe_daily_cap": 50,
+    "min_cause_rate": 0.01,
+    "outlier_lift": 3.0,
+    "place_z": 5.0,
+    "place_min_bounces": 20,
+    "role_share_max": 0.05,
+    "verify_max_age_days": 14,
+    "auto_action_confidence": "High"
+  },
+  "health": {
+    "green_below": 0.02,
+    "red_above": 0.05,
+    "young_days": 30,
+    "young_green_below": 0.015
+  },
+  "primary_domains": [],
+  "dimensions": [
+    "sender_inbox",
+    "sender_domain",
+    "step_variant",
+    "list_source",
+    "recipient_provider"
+  ],
+  "causes": [
+    {
+      "id": "bad_data",
+      "title": "Bad data: invalid addresses from one list source",
+      "category": "bad_data",
+      "concentrate_on": "list_source",
+      "max_hot": 2,
+      "min_hot_rate": 0.02,
+      "spread": {
+        "sender_inbox": 3
+      },
+      "not_a_place": {
+        "step_variant": "Dead addresses bounce on the first email they get, so they always sit on step 1."
+      },
+      "check": "verifier",
+      "fix": [
+        "Re-verify the hot list source with a second verifier and treat catch-all as unverified.",
+        "Suppress every bounced address (blocklist) so no other campaign retries it.",
+        "Pause uploads from that source until it passes a 200-lead sample test under 2% bounce.",
+        "Smoke-test 100 messages and require < 1% bounce, then resume at 40-50% volume for a week."
+      ],
+      "do_not": [
+        "Do not pause inboxes or domains: they are spread evenly and are not the cause.",
+        "Do not rewrite copy: 5.1.x means the address does not exist, whatever the email says."
+      ],
+      "actions": [
+        "blocklist_bounced",
+        "tag_leads",
+        "hold_list_source"
+      ],
+      "slack": {
+        "headline": "Dead addresses in the list {where}",
+        "headline_elsewhere": "Dead addresses piling up on {where}",
+        "why": [
+          "These mailboxes don't exist ({codes})."
+        ],
+        "ruled_out": [
+          "Not the inboxes or domains (spread over {inboxes} inboxes on {domains} domains). Not the email: a mailbox that doesn't exist bounces whatever it says.",
+          "Not the inboxes (spread over {inboxes}). Not the email: a mailbox that doesn't exist bounces whatever it says.",
+          "Not the lists (spread over {lists}). Not the email: a mailbox that doesn't exist bounces whatever it says.",
+          "Not the email: a mailbox that doesn't exist bounces whatever it says."
+        ],
+        "do": [
+          "Re-verify that list before sending to it again, and treat catch-all results as unverified.",
+          "Block the {n_sure} addresses that don't exist so no campaign emails them again.{unsure}"
+        ],
+        "dont": "Don't pause inboxes or rewrite the email: neither is the cause."
+      }
+    },
+    {
+      "id": "auth",
+      "title": "Authentication: sending domain fails SPF/DKIM/DMARC",
+      "category": "auth",
+      "concentrate_on": "sender_domain",
+      "max_hot": 2,
+      "spread": {},
+      "check": "dns_auth",
+      "fix": [
+        "Publish the missing records (SPF include for the mailbox provider, DKIM key, DMARC p=none with rua) and confirm alignment.",
+        "Pause the domain's inboxes in all campaigns until a test message shows spf=pass dkim=pass dmarc=pass.",
+        "Smoke-test 100 messages and require < 1% bounce, then resume at 40-50% volume for a week."
+      ],
+      "do_not": [
+        "Do not re-verify leads: the addresses are fine, the receiver rejects the sender.",
+        "Do not move leads to other inboxes on the same domain: they fail the same check."
+      ],
+      "actions": [
+        "remove_domain_senders",
+        "tag_senders"
+      ],
+      "slack": {
+        "headline": "{where} fails email authentication",
+        "headline_elsewhere": "Failed email authentication piling up on {where}",
+        "why": [
+          "Receivers reject its mail because {problems} ({codes}).",
+          "Receivers reject its mail because its SPF, DKIM or DMARC records are missing or wrong ({codes})."
+        ],
+        "ruled_out": [
+          "Not the leads or the email (spread over {lists} lists and {variants} variants). Your other domains, {clean_domains}, pass SPF, DKIM and DMARC and get none of these bounces.",
+          "Not the leads or the email: your other domains, {clean_domains}, pass SPF, DKIM and DMARC and get none of these bounces.",
+          "Not the leads or the email (spread over {lists} lists and {variants} variants)."
+        ],
+        "do": [
+          "Add the missing DNS records.",
+          "Take its inboxes out of campaigns until a test email passes SPF, DKIM and DMARC."
+        ],
+        "dont": "Don't re-verify leads: the addresses are fine."
+      }
+    },
+    {
+      "id": "domain_reputation",
+      "title": "Domain reputation: one domain blocked across providers",
+      "category": "domain_reputation",
+      "concentrate_on": "sender_domain",
+      "max_hot": 2,
+      "spread": {
+        "recipient_provider": 2
+      },
+      "check": "dbl_sender",
+      "fix": [
+        "Pause the domain and rest it (2-4 weeks of warmup-only traffic).",
+        "A confirmed Spamhaus DBL listing means retire and replace the domain; do not wait for delisting.",
+        "Swap a pre-warmed domain into the campaigns at the same per-inbox caps.",
+        "Smoke-test 100 messages and require < 1% bounce, then resume at 40-50% volume for a week."
+      ],
+      "do_not": [
+        "Do not rewrite copy first: the block follows the domain to every variant.",
+        "Do not add new inboxes on the same domain."
+      ],
+      "actions": [
+        "remove_domain_senders",
+        "tag_senders"
+      ],
+      "slack": {
+        "headline": "{where} has a bad reputation",
+        "headline_elsewhere": "Reputation blocks piling up on {where}",
+        "why": [
+          "Several providers block mail from this domain ({codes})."
+        ],
+        "ruled_out": [
+          "Not the email or the leads (spread over {variants} variants and {lists} lists). Not one provider either: {providers} different providers block it.",
+          "Not one provider: {providers} different providers block it."
+        ],
+        "do": [
+          "Take its inboxes out of campaigns and let the domain rest for 2-4 weeks.",
+          "If it's on the Spamhaus blocklist, replace the domain instead of waiting."
+        ],
+        "dont": "Don't rewrite the email first: the block follows the domain."
+      }
+    },
+    {
+      "id": "content",
+      "title": "Copy fingerprint: one variant blocked across domains and providers",
+      "category": "content",
+      "concentrate_on": "step_variant",
+      "max_hot": 2,
+      "spread": {
+        "sender_domain": 2,
+        "recipient_provider": 2
+      },
+      "check": "dbl_link",
+      "fix": [
+        "Pause the hot variant.",
+        "Send step 1 as plain text with no links and no open/click tracking.",
+        "Rewrite with word-level spintax so each send is near-unique; re-test at 5% of volume before resuming."
+      ],
+      "do_not": [
+        "Do not re-verify leads: these are content blocks, not invalid addresses.",
+        "Do not buy new domains: the copy follows you to any domain."
+      ],
+      "actions": [
+        "pause_variant",
+        "tag_campaign"
+      ],
+      "slack": {
+        "headline": "The email {where} is being blocked as spam",
+        "headline_elsewhere": "Spam blocks piling up on {where}",
+        "why": [
+          "It's blocked across different sending domains and providers, so the email itself is the problem ({codes})."
+        ],
+        "ruled_out": [
+          "Not the domains, inboxes or leads (spread over {domains} sending domains, {inboxes} inboxes and {lists} lists). Not one provider either: {providers} providers block it.",
+          "Not the domains (spread over {domains}). Not one provider either: {providers} providers block it."
+        ],
+        "do": [
+          "Pause this variant.",
+          "Its link domain {listed_links} is on the Spamhaus blocklist: replace it in every campaign that uses it.",
+          "Rewrite it as plain text without links or tracking, and test it on a small batch first."
+        ],
+        "dont": "Don't buy new domains: the problem follows the email."
+      }
+    },
+    {
+      "id": "recipient_gateway",
+      "title": "Recipient gateway: Mimecast/Proofpoint/Barracuda policy blocks",
+      "category": "recipient_gateway",
+      "concentrate_on": "recipient_provider",
+      "allowed_hot": [
+        "mimecast",
+        "proofpoint",
+        "barracuda"
+      ],
+      "max_hot": 3,
+      "spread": {},
+      "check": "gateway_only",
+      "fix": [
+        "Split leads behind that gateway into their own campaign.",
+        "Send to that segment at low volume, plain text, from your best-reputation inboxes.",
+        "Tighten targeting: gateway-protected companies are often enterprise accounts that need a different motion."
+      ],
+      "do_not": [
+        "Do not touch DNS: Google and Microsoft accept the same mail.",
+        "Do not pause inboxes: the block is on the recipient side."
+      ],
+      "actions": [
+        "tag_leads"
+      ],
+      "slack": {
+        "headline": "{where} is blocking mail to some recipients",
+        "headline_elsewhere": "Security-filter blocks piling up on {where}",
+        "why": [
+          "These companies' security filter rejects the mail, while Google and Microsoft accept the same mail ({codes})."
+        ],
+        "ruled_out": [
+          "Not your domains or the email: Google and Microsoft got {big_sends} of the same emails and blocked {big_blocks}. Not one inbox either (spread over {inboxes}).",
+          "Not your domains or the email: Google and Microsoft got {big_sends} of the same emails and blocked {big_blocks}."
+        ],
+        "do": [
+          "Move these leads into their own campaign.",
+          "Send to them slowly, in plain text, from your best inboxes."
+        ],
+        "dont": "Don't change DNS or pause inboxes: the block is on the recipient's side."
+      }
+    },
+    {
+      "id": "throttling",
+      "title": "Volume throttling: inboxes pushed above safe daily volume",
+      "category": "throttling",
+      "concentrate_on": "sender_inbox",
+      "max_hot": null,
+      "spread": {},
+      "check": "volume",
+      "fix": [
+        "Lower the daily limit on the hot inboxes back to their cap.",
+        "Ramp volume by at most 10-15% per week per inbox.",
+        "Add inboxes instead of pushing existing ones when the plan needs more sends."
+      ],
+      "do_not": [
+        "Do not suppress these leads: 4xx deferrals say nothing about the address.",
+        "Do not pause the campaign: the other inboxes are fine."
+      ],
+      "actions": [
+        "lower_daily_limit",
+        "tag_senders"
+      ],
+      "slack": {
+        "headline": "Too much volume from {where}",
+        "headline_elsewhere": "Slow-downs piling up on {where}",
+        "why": [
+          "Providers are slowing down their mail ({codes}). They send up to {now} emails a day; the safe level is {cap}.",
+          "Providers are slowing down their mail ({codes})."
+        ],
+        "ruled_out": [
+          "Not the leads or the email (spread over {lists} lists and {variants} variants). Not the whole account: the other {other_inboxes} inboxes have {other_bounces} of these bounces.",
+          "Not the whole account: the other {other_inboxes} inboxes have {other_bounces} of these bounces."
+        ],
+        "do": [
+          "Lower their daily limit to {cap}, then raise it by at most 10-15% a week.",
+          "If they're still slowed down after that, check spam complaints too."
+        ],
+        "dont": "Don't remove these leads: the addresses are fine."
+      }
+    },
+    {
+      "id": "sender_mailbox",
+      "title": "Sender mailbox: one inbox suspended or over its limit",
+      "category": "sender_mailbox",
+      "concentrate_on": "sender_inbox",
+      "max_hot": 1,
+      "spread": {},
+      "check": "inbox_isolated",
+      "fix": [
+        "Remove the inbox from its campaigns.",
+        "Check the Google/Microsoft admin console for suspension, a sending limit or a security hold.",
+        "Reconnect or replace the inbox; resume after 24-48h at a lower limit."
+      ],
+      "do_not": [
+        "Do not pause the campaign: other inboxes are sending fine.",
+        "Do not suppress leads: the recipient never saw the message."
+      ],
+      "actions": [
+        "remove_sender",
+        "tag_senders"
+      ],
+      "slack": {
+        "headline": "The inbox {where} has a problem",
+        "headline_elsewhere": "Sending-inbox errors piling up on {where}",
+        "why": [
+          "Its own provider is rejecting its mail: it may be suspended or over a sending limit ({codes})."
+        ],
+        "ruled_out": [
+          "Not the domain or the leads: the other {siblings} inboxes on the same domain have {sibling_bounces} of these bounces."
+        ],
+        "do": [
+          "Take it out of its campaigns.",
+          "Check the Google or Microsoft admin console, then reconnect or replace it."
+        ],
+        "dont": "Don't pause the campaign: the other inboxes are fine."
+      }
+    },
+    {
+      "id": "noise",
+      "title": "Noise: mailbox full, loops, expired 4xx",
+      "category": "noise",
+      "concentrate_on": null,
+      "max_hot": 0,
+      "spread": {},
+      "check": "none",
+      "fix": [
+        "No action. These clear on their own; EmailBison's normal bounce handling is enough."
+      ],
+      "do_not": [
+        "Do not pause anything for these."
+      ],
+      "actions": []
+    }
+  ]
+}

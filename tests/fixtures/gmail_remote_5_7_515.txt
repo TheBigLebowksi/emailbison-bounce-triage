@@ -1,0 +1,7 @@
+** Message blocked **
+
+Your message to sam.lee@outlook.com has been blocked. See technical details below for more information.
+
+The response from the remote server was:
+
+550 5.7.515 Access denied, sending domain kestrelreach-hq.com does not meet the required authentication level. [DM6PR11MB4123.namprd11.prod.outlook.com 2026-10-12T10:11:12.345Z 08DDE1B2C3D4E5F6]

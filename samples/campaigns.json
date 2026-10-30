@@ -1,0 +1,103 @@
+{
+ "note": "Mock of EmailBison sequence steps (GET /api/campaigns/{id}/sequence-steps).",
+ "campaigns": [
+  {
+   "id": 201,
+   "name": "Kestrel - Ops leaders Q4",
+   "workspace": "Kestrel",
+   "steps": [
+    {
+     "order": 1,
+     "variant": "A",
+     "sequence_step_id": 8001,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\nCase study if useful: kestrelreach.co/ops\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 1,
+     "variant": "B",
+     "sequence_step_id": 8002,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nSaw your team is hiring for ops roles.\n\nWorth 2 minutes? Here's the teardown: https://trk.kestrel-links.io/c/8f2a91?u={{lead_id}}\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 2,
+     "variant": "A",
+     "sequence_step_id": 8003,
+     "subject": "re: quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 3,
+     "variant": "A",
+     "sequence_step_id": 8004,
+     "subject": "re: quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    }
+   ]
+  },
+  {
+   "id": 202,
+   "name": "Kestrel - Finance VPs Q4",
+   "workspace": "Kestrel",
+   "steps": [
+    {
+     "order": 1,
+     "variant": "A",
+     "sequence_step_id": 8005,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\nCase study if useful: kestrelreach.co/ops\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 1,
+     "variant": "B",
+     "sequence_step_id": 8006,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nSaw your team is hiring for ops roles.\n\nCase study if useful: kestrelreach.co/ops\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 2,
+     "variant": "A",
+     "sequence_step_id": 8007,
+     "subject": "re: quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 3,
+     "variant": "A",
+     "sequence_step_id": 8008,
+     "subject": "re: quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    }
+   ]
+  },
+  {
+   "id": 301,
+   "name": "Juniper - Clinic owners",
+   "workspace": "Juniper",
+   "steps": [
+    {
+     "order": 1,
+     "variant": "A",
+     "sequence_step_id": 8009,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 1,
+     "variant": "B",
+     "sequence_step_id": 8010,
+     "subject": "quick question",
+     "body": "Hi {FIRST_NAME},\n\nSaw your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    },
+    {
+     "order": 2,
+     "variant": "A",
+     "sequence_step_id": 8011,
+     "subject": "re: quick question",
+     "body": "Hi {FIRST_NAME},\n\nNoticed your team is hiring for ops roles.\n\n{SENDER_FIRST_NAME}"
+    }
+   ]
+  }
+ ]
+}

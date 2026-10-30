@@ -1,0 +1,5 @@
+# Bounce Triage runs on the Python 3.10+ standard library. Nothing here is required.
+#
+# Optional: faster, more complete live DNS lookups for --dns live
+# (without it, DNS-over-HTTPS via urllib is used).
+# dnspython>=2.6

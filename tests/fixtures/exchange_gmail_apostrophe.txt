@@ -1,0 +1,10 @@
+Your message to jo@summitdental.com couldn't be delivered.
+
+Diagnostic information for administrators:
+
+Generating server: CH3PR11MB8123.namprd11.prod.outlook.com
+
+jo@summitdental.com
+Remote Server returned '550 5.7.40 Your message was blocked because the sending domain doesn't have a DMARC record or the DMARC record doesn't specify a DMARC policy. Gmail requires all bulk email senders to add a DMARC record to their sending domain. 1a2b3c4d5e.12 - gsmtp'
+
+Original message headers:

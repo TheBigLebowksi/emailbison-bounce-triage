@@ -1,0 +1,7 @@
+** Delivery incomplete **
+
+There was a temporary problem delivering your message to alex@stoneworks.io. Gmail will retry for 46 more hours. You'll be notified if the delivery fails permanently.
+
+The response was:
+
+421-4.7.28 Gmail has detected an unusual rate of email originating from your IP address. To protect our users from spam, email sent from your IP address has been temporarily rate limited. - gsmtp

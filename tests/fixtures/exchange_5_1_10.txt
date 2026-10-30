@@ -1,0 +1,22 @@
+Your message to riley.patel@harborlabs.com couldn't be delivered.
+
+riley.patel wasn't found at harborlabs.com.
+
+dan    Office 365    harborlabs.com
+Action Required    Recipient
+
+Unknown To address
+
+How to Fix It
+The address may be misspelled or may not exist. Try one or more of the following:
+
+Diagnostic information for administrators:
+
+Generating server: SA1PR12MB7270.namprd12.prod.outlook.com
+
+riley.patel@harborlabs.com
+Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not found by SMTP address lookup'
+
+Original message headers:
+
+Received: from SA1PR12MB7270.namprd12.prod.outlook.com by SA1PR12MB7270.namprd12.prod.outlook.com with HTTPS

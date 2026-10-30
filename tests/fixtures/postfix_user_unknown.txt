@@ -1,0 +1,8 @@
+This is the mail system at host mail.juniper-mail.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+<drew.novak@pinecargo.net>: host mail.pinecargo.net[203.0.113.20] said: 550 5.1.1
+    <drew.novak@pinecargo.net>: Recipient address rejected: User unknown in virtual
+    mailbox table (in reply to RCPT TO command)

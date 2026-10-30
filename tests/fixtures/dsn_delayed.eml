@@ -1,0 +1,22 @@
+From: Mail Delivery System <MAILER-DAEMON@mail.juniper-mail.net>
+To: hugo@juniper-mail.net
+Subject: Delayed Mail (still being retried)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="B1"
+
+--B1
+Content-Type: text/plain
+
+This is the mail system at host mail.juniper-mail.net.
+
+--B1
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.juniper-mail.net
+
+Final-Recipient: rfc822; iris@keystonefoods.com
+Action: delayed
+Status: 4.4.1
+Diagnostic-Code: X-Postfix; connect to mx.keystonefoods.com[203.0.113.9]:25: Connection timed out
+
+--B1--

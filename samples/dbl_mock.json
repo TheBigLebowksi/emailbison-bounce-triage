@@ -1,0 +1,6 @@
+{
+ "note": "Mocked Spamhaus DBL answers. Real lookups: <domain>.<DQS_KEY>.dbl.dq.spamhaus.net",
+ "listed": {
+  "trk.kestrel-links.io": "127.0.1.2"
+ }
+}

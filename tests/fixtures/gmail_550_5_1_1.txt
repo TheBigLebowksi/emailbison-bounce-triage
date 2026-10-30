@@ -1,0 +1,12 @@
+** Address not found **
+
+Your message wasn't delivered to jane.doe@brightforge.com because the address couldn't be found, or is unable to receive mail.
+
+Learn more here: https://support.google.com/mail/?p=NoSuchUser
+
+The response was:
+
+550-5.1.1 The email account that you tried to reach does not exist. Please try
+550-5.1.1 double-checking the recipient's email address for typos or
+550-5.1.1 unnecessary spaces. For more information, go to
+550 5.1.1  https://support.google.com/mail/?p=NoSuchUser d75a77b69052e-4b2f3a1c9e1si5571231cf.412 - gsmtp

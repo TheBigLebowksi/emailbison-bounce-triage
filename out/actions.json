@@ -1,0 +1,1693 @@
+{
+  "dry_run": true,
+  "note": "Paths unverified against a live EmailBison instance; see ENDPOINTS in bounce_triage/actions.py.",
+  "actions": [
+    {
+      "kind": "api",
+      "operation": "create_blacklisted_email",
+      "why": "Never retry an address that does not exist.",
+      "method": "POST",
+      "path": "/api/blacklisted-emails",
+      "items": [
+        {
+          "email": "alex.berg@iron-partners.io"
+        },
+        {
+          "email": "alex.dubois@northpartners.co"
+        },
+        {
+          "email": "alex.fischer@lumen-energy.net"
+        },
+        {
+          "email": "alex.ibrahim@copperhealth.io"
+        },
+        {
+          "email": "alex.ibrahim@lumenmetrics.co"
+        },
+        {
+          "email": "alex.ibrahim@trueclinics.io"
+        },
+        {
+          "email": "alex.khan5@outlook.com"
+        },
+        {
+          "email": "alex.khan@bright-capital.com"
+        },
+        {
+          "email": "alex.khan@redwoodcapital.io"
+        },
+        {
+          "email": "alex.kim@granite-industrial.io"
+        },
+        {
+          "email": "alex.lopez@keystonemetrics.co"
+        },
+        {
+          "email": "alex.novak@pine-cargo.net"
+        },
+        {
+          "email": "alex.reyes@stonehealth.net"
+        },
+        {
+          "email": "alex.rossi@maplesystems.co"
+        },
+        {
+          "email": "alex.silva@true-dental.io"
+        },
+        {
+          "email": "avery.cohen@summit-energy.com"
+        },
+        {
+          "email": "avery.dubois@pinelogistics.com"
+        },
+        {
+          "email": "avery.garcia@summitlabs.net"
+        },
+        {
+          "email": "avery.ibrahim@novapartners.io"
+        },
+        {
+          "email": "avery.lopez@harbor-robotics.com"
+        },
+        {
+          "email": "avery.moreau@granite-analytics.co"
+        },
+        {
+          "email": "avery.moreau@true-clinics.net"
+        },
+        {
+          "email": "avery.muller@granitelogistics.com"
+        },
+        {
+          "email": "avery.novak@truerobotics.co"
+        },
+        {
+          "email": "avery.rossi91@gmail.com"
+        },
+        {
+          "email": "avery.rossi@orbit-industrial.com"
+        },
+        {
+          "email": "avery.tanaka@orbit-energy.co"
+        },
+        {
+          "email": "casey.fischer@silveranalytics.com"
+        },
+        {
+          "email": "casey.fischer@silverhealth.com"
+        },
+        {
+          "email": "casey.ibrahim@keystone-works.net"
+        },
+        {
+          "email": "casey.ibrahim@north-forge.io"
+        },
+        {
+          "email": "casey.ibrahim@stone-systems.net"
+        },
+        {
+          "email": "casey.kim@truesystems.com"
+        },
+        {
+          "email": "casey.nguyen44@hotmail.com"
+        },
+        {
+          "email": "casey.patel@novadental.io"
+        },
+        {
+          "email": "casey.tanaka@iron-dental.com"
+        },
+        {
+          "email": "casey.tanaka@swift-cargo.com"
+        },
+        {
+          "email": "devon.fischer@north-forge.co"
+        },
+        {
+          "email": "devon.ibrahim@stonelogistics.com"
+        },
+        {
+          "email": "devon.jensen@redwood-metrics.com"
+        },
+        {
+          "email": "devon.lopez@true-energy.co"
+        },
+        {
+          "email": "devon.moreau@north-works.io"
+        },
+        {
+          "email": "devon.okafor@bright-dental.net"
+        },
+        {
+          "email": "devon.patel@lumen-health.com"
+        },
+        {
+          "email": "devon.silva@orbit-analytics.net"
+        },
+        {
+          "email": "devon.tanaka@north-works.io"
+        },
+        {
+          "email": "drew.ibrahim@orbit-foods.co"
+        },
+        {
+          "email": "drew.lopez@northenergy.co"
+        },
+        {
+          "email": "drew.muller@redwood-cargo.co"
+        },
+        {
+          "email": "drew.nguyen83@outlook.com"
+        },
+        {
+          "email": "drew.reyes@bluerobotics.com"
+        },
+        {
+          "email": "drew.rossi68@aol.com"
+        },
+        {
+          "email": "drew.rossi@clearsupply.io"
+        },
+        {
+          "email": "drew.rossi@mapleretail.io"
+        },
+        {
+          "email": "drew.rossi@summit-industrial.co"
+        },
+        {
+          "email": "drew.tanaka78@yahoo.com"
+        },
+        {
+          "email": "drew.walsh@trueenergy.co"
+        },
+        {
+          "email": "emery.berg@clear-capital.io"
+        },
+        {
+          "email": "emery.cohen@northcargo.com"
+        },
+        {
+          "email": "emery.costa@north-energy.co"
+        },
+        {
+          "email": "emery.dubois3@outlook.com"
+        },
+        {
+          "email": "emery.dubois@north-systems.com"
+        },
+        {
+          "email": "emery.garcia@redwoodanalytics.net"
+        },
+        {
+          "email": "emery.khan37@hotmail.com"
+        },
+        {
+          "email": "emery.moreau@swift-health.co"
+        },
+        {
+          "email": "emery.novak@graniteanalytics.co"
+        },
+        {
+          "email": "emery.smith@novaindustrial.net"
+        },
+        {
+          "email": "emery.tanaka48@gmail.com"
+        },
+        {
+          "email": "harper.fischer@summitsystems.co"
+        },
+        {
+          "email": "harper.jensen92@gmail.com"
+        },
+        {
+          "email": "harper.moreau28@yahoo.com"
+        },
+        {
+          "email": "harper.moreau@northindustrial.io"
+        },
+        {
+          "email": "harper.moreau@true-partners.net"
+        },
+        {
+          "email": "harper.nguyen@nova-supply.com"
+        },
+        {
+          "email": "harper.nguyen@orbit-logistics.net"
+        },
+        {
+          "email": "harper.okafor@blue-labs.com"
+        },
+        {
+          "email": "harper.okafor@truecapital.io"
+        },
+        {
+          "email": "harper.reyes@pineretail.co"
+        },
+        {
+          "email": "harper.reyes@swiftdental.io"
+        },
+        {
+          "email": "harper.rossi51@outlook.com"
+        },
+        {
+          "email": "harper.tanaka@maplefoods.io"
+        },
+        {
+          "email": "harper.walsh@summit-forge.io"
+        },
+        {
+          "email": "jamie.cohen@orbit-logistics.net"
+        },
+        {
+          "email": "jamie.costa@northworks.co"
+        },
+        {
+          "email": "jamie.fischer@pine-cargo.net"
+        },
+        {
+          "email": "jamie.garcia@stone-industrial.net"
+        },
+        {
+          "email": "jamie.jensen@pineenergy.com"
+        },
+        {
+          "email": "jamie.jensen@pineindustrial.net"
+        },
+        {
+          "email": "jamie.kim@granitesupply.io"
+        },
+        {
+          "email": "jamie.kim@northenergy.co"
+        },
+        {
+          "email": "jamie.moreau@blue-supply.co"
+        },
+        {
+          "email": "jamie.muller@brightanalytics.co"
+        },
+        {
+          "email": "jamie.okafor51@gmail.com"
+        },
+        {
+          "email": "jamie.reyes@clearfreight.com"
+        },
+        {
+          "email": "jamie.smith41@gmail.com"
+        },
+        {
+          "email": "jamie.smith@redwood-freight.net"
+        },
+        {
+          "email": "jamie.smith@silver-cargo.com"
+        },
+        {
+          "email": "jamie.tanaka@keystoneforge.io"
+        },
+        {
+          "email": "jordan.costa@pine-labs.net"
+        },
+        {
+          "email": "jordan.costa@swiftenergy.co"
+        },
+        {
+          "email": "jordan.garcia@northfreight.io"
+        },
+        {
+          "email": "jordan.ibrahim@redwoodrobotics.com"
+        },
+        {
+          "email": "jordan.jensen@maple-capital.com"
+        },
+        {
+          "email": "jordan.jensen@pine-logistics.io"
+        },
+        {
+          "email": "jordan.jensen@stone-logistics.io"
+        },
+        {
+          "email": "jordan.khan95@hotmail.com"
+        },
+        {
+          "email": "jordan.khan@summit-metrics.net"
+        },
+        {
+          "email": "jordan.lopez76@gmail.com"
+        },
+        {
+          "email": "jordan.moreau@north-capital.io"
+        },
+        {
+          "email": "jordan.muller@silver-systems.io"
+        },
+        {
+          "email": "jordan.patel@swiftindustrial.io"
+        },
+        {
+          "email": "jordan.reyes97@outlook.com"
+        },
+        {
+          "email": "jordan.silva@orbitcargo.com"
+        },
+        {
+          "email": "jordan.smith29@gmail.com"
+        },
+        {
+          "email": "jordan.tanaka81@gmail.com"
+        },
+        {
+          "email": "jordan.tanaka@keystonepartners.net"
+        },
+        {
+          "email": "jordan.walsh@clearlogistics.net"
+        },
+        {
+          "email": "logan.cohen@granitecargo.io"
+        },
+        {
+          "email": "logan.costa@north-forge.io"
+        },
+        {
+          "email": "logan.costa@true-dental.net"
+        },
+        {
+          "email": "logan.fischer@clearlabs.com"
+        },
+        {
+          "email": "logan.ibrahim@granite-works.com"
+        },
+        {
+          "email": "logan.kim@northretail.co"
+        },
+        {
+          "email": "logan.nguyen@clear-metrics.com"
+        },
+        {
+          "email": "logan.nguyen@orbit-energy.io"
+        },
+        {
+          "email": "logan.nguyen@stonepartners.io"
+        },
+        {
+          "email": "logan.novak@nova-robotics.co"
+        },
+        {
+          "email": "logan.okafor@stonelabs.com"
+        },
+        {
+          "email": "logan.rossi@orbit-systems.co"
+        },
+        {
+          "email": "logan.silva16@yahoo.com"
+        },
+        {
+          "email": "logan.smith33@gmail.com"
+        },
+        {
+          "email": "logan.smith85@yahoo.com"
+        },
+        {
+          "email": "logan.walsh@iron-works.io"
+        },
+        {
+          "email": "marlow.costa@orbit-metrics.com"
+        },
+        {
+          "email": "marlow.fischer@keystonedental.co"
+        },
+        {
+          "email": "marlow.garcia@maple-partners.io"
+        },
+        {
+          "email": "marlow.khan@granite-health.com"
+        },
+        {
+          "email": "marlow.lopez37@outlook.com"
+        },
+        {
+          "email": "marlow.moreau@ironindustrial.com"
+        },
+        {
+          "email": "marlow.rossi@harbor-partners.net"
+        },
+        {
+          "email": "marlow.rossi@novalogistics.io"
+        },
+        {
+          "email": "marlow.smith@keystone-metrics.io"
+        },
+        {
+          "email": "morgan.berg@harbor-dental.net"
+        },
+        {
+          "email": "morgan.fischer@granite-analytics.io"
+        },
+        {
+          "email": "morgan.fischer@nova-forge.co"
+        },
+        {
+          "email": "morgan.kim@lumen-labs.com"
+        },
+        {
+          "email": "morgan.nguyen@brightmetrics.com"
+        },
+        {
+          "email": "morgan.silva42@hotmail.com"
+        },
+        {
+          "email": "morgan.tanaka64@hotmail.com"
+        },
+        {
+          "email": "morgan.tanaka@maplemetrics.net"
+        },
+        {
+          "email": "nico.dubois@redwoodforge.io"
+        },
+        {
+          "email": "nico.garcia@northworks.co"
+        },
+        {
+          "email": "nico.garcia@summit-labs.co"
+        },
+        {
+          "email": "nico.garcia@swiftfreight.io"
+        },
+        {
+          "email": "nico.lopez@iron-logistics.net"
+        },
+        {
+          "email": "nico.muller@redwood-industrial.net"
+        },
+        {
+          "email": "nico.nguyen@maplehealth.com"
+        },
+        {
+          "email": "nico.novak58@gmail.com"
+        },
+        {
+          "email": "nico.okafor@redwood-freight.co"
+        },
+        {
+          "email": "nico.patel@lumenworks.com"
+        },
+        {
+          "email": "nico.rossi41@yahoo.com"
+        },
+        {
+          "email": "nico.smith@north-systems.net"
+        },
+        {
+          "email": "nico.smith@silverclinics.net"
+        },
+        {
+          "email": "nico.smith@stone-foods.net"
+        },
+        {
+          "email": "nico.tanaka@silver-metrics.net"
+        },
+        {
+          "email": "nico.tanaka@summit-clinics.com"
+        },
+        {
+          "email": "nico.walsh@clear-supply.net"
+        },
+        {
+          "email": "nico.walsh@maplepartners.io"
+        },
+        {
+          "email": "oakley.berg@stone-retail.com"
+        },
+        {
+          "email": "oakley.dubois@blue-clinics.com"
+        },
+        {
+          "email": "oakley.dubois@keystone-foods.co"
+        },
+        {
+          "email": "oakley.fischer93@aol.com"
+        },
+        {
+          "email": "oakley.garcia@swiftretail.io"
+        },
+        {
+          "email": "oakley.ibrahim@bright-analytics.io"
+        },
+        {
+          "email": "oakley.jensen35@yahoo.com"
+        },
+        {
+          "email": "oakley.lopez40@yahoo.com"
+        },
+        {
+          "email": "oakley.moreau32@gmail.com"
+        },
+        {
+          "email": "oakley.moreau@stone-forge.io"
+        },
+        {
+          "email": "oakley.nguyen72@yahoo.com"
+        },
+        {
+          "email": "oakley.okafor@swift-systems.co"
+        },
+        {
+          "email": "oakley.reyes@silver-labs.com"
+        },
+        {
+          "email": "oakley.rossi62@aol.com"
+        },
+        {
+          "email": "parker.berg44@hotmail.com"
+        },
+        {
+          "email": "parker.berg@orbitsupply.net"
+        },
+        {
+          "email": "parker.cohen@keystone-forge.net"
+        },
+        {
+          "email": "parker.dubois@swift-logistics.io"
+        },
+        {
+          "email": "parker.garcia42@outlook.com"
+        },
+        {
+          "email": "parker.khan@clearworks.co"
+        },
+        {
+          "email": "parker.muller@harbor-clinics.com"
+        },
+        {
+          "email": "parker.nguyen@copper-robotics.co"
+        },
+        {
+          "email": "parker.novak@novalogistics.io"
+        },
+        {
+          "email": "parker.novak@orbitmetrics.com"
+        },
+        {
+          "email": "parker.rossi@novametrics.io"
+        },
+        {
+          "email": "parker.silva@granite-dental.io"
+        },
+        {
+          "email": "parker.silva@keystone-industrial.co"
+        },
+        {
+          "email": "parker.walsh@iron-partners.co"
+        },
+        {
+          "email": "peyton.dubois@ironsystems.co"
+        },
+        {
+          "email": "peyton.fischer@iron-robotics.io"
+        },
+        {
+          "email": "peyton.fischer@pine-works.net"
+        },
+        {
+          "email": "peyton.ibrahim91@outlook.com"
+        },
+        {
+          "email": "peyton.ibrahim@novaworks.net"
+        },
+        {
+          "email": "peyton.jensen@bluesystems.io"
+        },
+        {
+          "email": "peyton.jensen@keystone-metrics.io"
+        },
+        {
+          "email": "peyton.lopez@lumenfoods.com"
+        },
+        {
+          "email": "peyton.muller@silver-systems.net"
+        },
+        {
+          "email": "peyton.novak67@outlook.com"
+        },
+        {
+          "email": "peyton.novak@north-robotics.com"
+        },
+        {
+          "email": "peyton.okafor@clearforge.io"
+        },
+        {
+          "email": "peyton.okafor@orbit-energy.com"
+        },
+        {
+          "email": "peyton.patel@maplemetrics.io"
+        },
+        {
+          "email": "peyton.reyes88@yahoo.com"
+        },
+        {
+          "email": "peyton.rossi@orbitdental.co"
+        },
+        {
+          "email": "peyton.smith6@aol.com"
+        },
+        {
+          "email": "peyton.tanaka51@yahoo.com"
+        },
+        {
+          "email": "peyton.walsh@bluehealth.co"
+        },
+        {
+          "email": "quinn.berg@copperworks.io"
+        },
+        {
+          "email": "quinn.berg@keystone-analytics.net"
+        },
+        {
+          "email": "quinn.berg@pine-cargo.co"
+        },
+        {
+          "email": "quinn.garcia65@yahoo.com"
+        },
+        {
+          "email": "quinn.garcia@true-health.co"
+        },
+        {
+          "email": "quinn.moreau@keystonecargo.io"
+        },
+        {
+          "email": "quinn.moreau@maplesupply.co"
+        },
+        {
+          "email": "quinn.muller@maplelabs.net"
+        },
+        {
+          "email": "quinn.novak@keystonelogistics.com"
+        },
+        {
+          "email": "quinn.okafor@pine-logistics.co"
+        },
+        {
+          "email": "quinn.reyes@orbit-freight.co"
+        },
+        {
+          "email": "quinn.rossi13@gmail.com"
+        },
+        {
+          "email": "quinn.rossi@stoneworks.com"
+        },
+        {
+          "email": "quinn.silva31@outlook.com"
+        },
+        {
+          "email": "quinn.smith@lumenclinics.com"
+        },
+        {
+          "email": "quinn.tanaka95@yahoo.com"
+        },
+        {
+          "email": "reese.dubois@swift-labs.io"
+        },
+        {
+          "email": "reese.fischer@harborsystems.io"
+        },
+        {
+          "email": "reese.garcia@keystonefoods.co"
+        },
+        {
+          "email": "reese.jensen@ironlabs.com"
+        },
+        {
+          "email": "reese.jensen@ironmetrics.net"
+        },
+        {
+          "email": "reese.kim@nova-dental.com"
+        },
+        {
+          "email": "reese.novak26@hotmail.com"
+        },
+        {
+          "email": "reese.patel@lumen-forge.io"
+        },
+        {
+          "email": "reese.patel@silver-capital.com"
+        },
+        {
+          "email": "reese.reyes@blue-labs.io"
+        },
+        {
+          "email": "reese.silva@maple-logistics.net"
+        },
+        {
+          "email": "reese.tanaka@silver-industrial.co"
+        },
+        {
+          "email": "riley.berg@orbitrobotics.net"
+        },
+        {
+          "email": "riley.cohen@northforge.io"
+        },
+        {
+          "email": "riley.cohen@orbitcapital.net"
+        },
+        {
+          "email": "riley.cohen@stonemetrics.io"
+        },
+        {
+          "email": "riley.costa45@hotmail.com"
+        },
+        {
+          "email": "riley.fischer@summit-metrics.com"
+        },
+        {
+          "email": "riley.garcia31@outlook.com"
+        },
+        {
+          "email": "riley.garcia@novasupply.net"
+        },
+        {
+          "email": "riley.khan@north-labs.co"
+        },
+        {
+          "email": "riley.lopez@nova-logistics.io"
+        },
+        {
+          "email": "riley.nguyen35@yahoo.com"
+        },
+        {
+          "email": "riley.novak@redwood-energy.co"
+        },
+        {
+          "email": "riley.okafor@clearlogistics.io"
+        },
+        {
+          "email": "riley.okafor@harborrobotics.com"
+        },
+        {
+          "email": "riley.patel@harborcargo.co"
+        },
+        {
+          "email": "riley.rossi@pinesystems.io"
+        },
+        {
+          "email": "riley.silva@redwoodindustrial.io"
+        },
+        {
+          "email": "rowan.garcia@orbit-partners.com"
+        },
+        {
+          "email": "rowan.lopez@silver-partners.com"
+        },
+        {
+          "email": "rowan.lopez@true-partners.io"
+        },
+        {
+          "email": "rowan.novak4@outlook.com"
+        },
+        {
+          "email": "rowan.okafor@stonesystems.net"
+        },
+        {
+          "email": "rowan.patel@harborclinics.io"
+        },
+        {
+          "email": "rowan.rossi@redwooddental.io"
+        },
+        {
+          "email": "rowan.walsh@lumen-metrics.net"
+        },
+        {
+          "email": "sage.dubois@brightfreight.co"
+        },
+        {
+          "email": "sage.dubois@summitrobotics.io"
+        },
+        {
+          "email": "sage.fischer92@yahoo.com"
+        },
+        {
+          "email": "sage.garcia@stoneworks.com"
+        },
+        {
+          "email": "sage.garcia@swift-metrics.io"
+        },
+        {
+          "email": "sage.jensen@lumen-robotics.com"
+        },
+        {
+          "email": "sage.moreau@keystonepartners.io"
+        },
+        {
+          "email": "sage.novak99@aol.com"
+        },
+        {
+          "email": "sage.rossi@novahealth.co"
+        },
+        {
+          "email": "sage.smith93@gmail.com"
+        },
+        {
+          "email": "sage.tanaka@keystone-forge.com"
+        },
+        {
+          "email": "sam.costa@swiftsystems.co"
+        },
+        {
+          "email": "sam.dubois@novalogistics.net"
+        },
+        {
+          "email": "sam.khan@ironrobotics.net"
+        },
+        {
+          "email": "sam.kim@harbor-health.net"
+        },
+        {
+          "email": "sam.lopez@orbit-cargo.net"
+        },
+        {
+          "email": "sam.muller@summit-dental.io"
+        },
+        {
+          "email": "sam.novak@orbitindustrial.io"
+        },
+        {
+          "email": "sam.okafor@bluedental.co"
+        },
+        {
+          "email": "sam.okafor@redwoodclinics.com"
+        },
+        {
+          "email": "sam.okafor@true-retail.co"
+        },
+        {
+          "email": "sam.reyes@clear-clinics.io"
+        },
+        {
+          "email": "sam.smith@bright-health.com"
+        },
+        {
+          "email": "sam.smith@keystonesystems.io"
+        },
+        {
+          "email": "sam.walsh@bright-robotics.io"
+        },
+        {
+          "email": "sky.costa@north-freight.com"
+        },
+        {
+          "email": "sky.dubois81@outlook.com"
+        },
+        {
+          "email": "sky.ibrahim@clear-energy.io"
+        },
+        {
+          "email": "sky.ibrahim@stonehealth.net"
+        },
+        {
+          "email": "sky.khan@silver-cargo.co"
+        },
+        {
+          "email": "sky.kim@maple-capital.com"
+        },
+        {
+          "email": "sky.lopez@lumen-freight.com"
+        },
+        {
+          "email": "sky.lopez@silverlabs.net"
+        },
+        {
+          "email": "sky.moreau4@yahoo.com"
+        },
+        {
+          "email": "sky.nguyen@orbit-forge.io"
+        },
+        {
+          "email": "sky.novak@harbor-robotics.co"
+        },
+        {
+          "email": "sky.silva92@hotmail.com"
+        },
+        {
+          "email": "sky.smith63@yahoo.com"
+        },
+        {
+          "email": "sky.tanaka@harbor-analytics.com"
+        },
+        {
+          "email": "sky.tanaka@pine-freight.com"
+        },
+        {
+          "email": "taylor.kim@lumenmetrics.com"
+        },
+        {
+          "email": "taylor.kim@silvercapital.net"
+        },
+        {
+          "email": "taylor.moreau@harborlabs.com"
+        },
+        {
+          "email": "taylor.muller59@aol.com"
+        },
+        {
+          "email": "taylor.muller8@yahoo.com"
+        },
+        {
+          "email": "taylor.nguyen@clearworks.net"
+        },
+        {
+          "email": "taylor.novak@maple-labs.co"
+        },
+        {
+          "email": "taylor.okafor@redwood-works.io"
+        },
+        {
+          "email": "taylor.rossi@nova-retail.com"
+        },
+        {
+          "email": "taylor.silva@nova-freight.io"
+        },
+        {
+          "email": "taylor.silva@redwoodsystems.net"
+        },
+        {
+          "email": "taylor.smith@silver-foods.co"
+        },
+        {
+          "email": "taylor.tanaka@ironworks.com"
+        },
+        {
+          "email": "taylor.tanaka@pineretail.co"
+        }
+      ],
+      "id": "Kestrel:bad_data:1",
+      "workspace": "Kestrel",
+      "cause": "bad_data",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run",
+      "count": 322
+    },
+    {
+      "kind": "manual",
+      "operation": "manual",
+      "why": "33 addresses bounced with an ambiguous code (5.4.1 'Access denied'): they may be real people behind a company filter. Re-verify them before blocking.",
+      "id": "Kestrel:bad_data:2",
+      "workspace": "Kestrel",
+      "cause": "bad_data",
+      "confidence": "High",
+      "auto": false,
+      "status": "manual"
+    },
+    {
+      "kind": "api",
+      "operation": "create_tag",
+      "why": "Make the cause filterable in EmailBison.",
+      "method": "POST",
+      "path": "/api/tags",
+      "body": {
+        "name": "bounce:bad-data"
+      },
+      "id": "Kestrel:bad_data:3",
+      "workspace": "Kestrel",
+      "cause": "bad_data",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "attach_tags_to_leads",
+      "why": "Tag bounced leads `bounce:bad-data`.",
+      "method": "POST",
+      "path": "/api/tags/attach-to-leads",
+      "body": {
+        "tag_ids": [
+          "<id of bounce:bad-data>"
+        ],
+        "lead_ids": [
+          10040,
+          10075,
+          10081,
+          10095,
+          10097,
+          10100,
+          10105,
+          10113,
+          10133,
+          10148,
+          10196,
+          10221,
+          10322,
+          10334,
+          10445,
+          10453,
+          10616,
+          10629,
+          10680,
+          10741,
+          10748,
+          10773,
+          10777,
+          10842,
+          10867,
+          10972,
+          11027,
+          11034,
+          11068,
+          11102,
+          11136,
+          11143,
+          11252,
+          11284,
+          11426,
+          11454,
+          11466,
+          11507,
+          11558,
+          11573,
+          11751,
+          11893,
+          11912,
+          12033,
+          12075,
+          12088,
+          12106,
+          12153,
+          12200,
+          12248,
+          12334,
+          12348,
+          12353,
+          12452,
+          12579,
+          12668,
+          12676,
+          12692,
+          12754,
+          12776,
+          12863,
+          12866,
+          12925,
+          13098,
+          13158,
+          13178,
+          13223,
+          13226,
+          13316,
+          13331,
+          13357,
+          13374,
+          13380,
+          13390,
+          13498,
+          13511,
+          13569,
+          13668,
+          13707,
+          13735,
+          13817,
+          13829,
+          13891,
+          14106,
+          14131,
+          14156,
+          14164,
+          14165,
+          14197,
+          14244,
+          14253,
+          14348,
+          14350,
+          14357,
+          14384,
+          14484,
+          14520,
+          14536,
+          14546,
+          14591,
+          14601,
+          14629,
+          14641,
+          14653,
+          14674,
+          14677,
+          14689,
+          14871,
+          14882,
+          14884,
+          14911,
+          14912,
+          14950,
+          14954,
+          14971,
+          15007,
+          15033,
+          15039,
+          15048,
+          15057,
+          15084,
+          15109,
+          15167,
+          15207,
+          15224,
+          15278,
+          15312,
+          15357,
+          15401,
+          15413,
+          15436,
+          15442,
+          15543,
+          15728,
+          15752,
+          15754,
+          15790,
+          15939,
+          15975,
+          15983,
+          16012,
+          16033,
+          16044,
+          16134,
+          16143,
+          16152,
+          16163,
+          16195,
+          16308,
+          16317,
+          16319,
+          16402,
+          16430,
+          16463,
+          16476,
+          16498,
+          16544,
+          16587,
+          16600,
+          16801,
+          16901,
+          16936,
+          16944,
+          16945,
+          17111,
+          17127,
+          17137,
+          17142,
+          17156,
+          17159,
+          17184,
+          17206,
+          17235,
+          17421,
+          17465,
+          17596,
+          17636,
+          17775,
+          17829,
+          17832,
+          17833,
+          17863,
+          17887,
+          17972,
+          17982,
+          18062,
+          18253,
+          18275,
+          18332,
+          18400,
+          18421,
+          18492,
+          18583,
+          18587,
+          18606,
+          18690,
+          18702,
+          18714,
+          18722,
+          18786,
+          18806,
+          18860,
+          18905,
+          18929,
+          18968,
+          18980,
+          19030,
+          19069,
+          19080,
+          19142,
+          19144,
+          19162,
+          19170,
+          19251,
+          19254,
+          19296,
+          19310,
+          19330,
+          19473,
+          19529,
+          19551,
+          19578,
+          19603,
+          19669,
+          19724,
+          19756,
+          19814,
+          19829,
+          19869,
+          19895,
+          20031,
+          20050,
+          20059,
+          20235,
+          20432,
+          20464,
+          20499,
+          20554,
+          20586,
+          5009,
+          5024,
+          5050,
+          5051,
+          5065,
+          5098,
+          5109,
+          5114,
+          5222,
+          5227,
+          5252,
+          5305,
+          5377,
+          5539,
+          5592,
+          5787,
+          5946,
+          6036,
+          6050,
+          6058,
+          6085,
+          6155,
+          6167,
+          6174,
+          6220,
+          6280,
+          6284,
+          6294,
+          6435,
+          6444,
+          6453,
+          6454,
+          6544,
+          6548,
+          6549,
+          6614,
+          6627,
+          6764,
+          6786,
+          6821,
+          6867,
+          6960,
+          7046,
+          7068,
+          7127,
+          7135,
+          7208,
+          7252,
+          7295,
+          7365,
+          7369,
+          7371,
+          7407,
+          7483,
+          7606,
+          7700,
+          7704,
+          7733,
+          7797,
+          7809,
+          7831,
+          7872,
+          7876,
+          7884,
+          7957,
+          7963,
+          7980,
+          8087,
+          8201,
+          8355,
+          8464,
+          8471,
+          8478,
+          8561,
+          8600,
+          8621,
+          8622,
+          8681,
+          8718,
+          8740,
+          8744,
+          8762,
+          8800,
+          8820,
+          8843,
+          8844,
+          8885,
+          8927,
+          8928,
+          8976,
+          9055,
+          9061,
+          9071,
+          9072,
+          9134,
+          9146,
+          9164,
+          9202,
+          9209,
+          9215,
+          9240,
+          9258,
+          9270,
+          9359,
+          9470,
+          9623,
+          9656,
+          9675,
+          9686,
+          9793,
+          9804,
+          9805,
+          9807,
+          9845,
+          9857,
+          9921
+        ]
+      },
+      "id": "Kestrel:bad_data:4",
+      "workspace": "Kestrel",
+      "cause": "bad_data",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "manual",
+      "operation": "manual",
+      "why": "Stop uploads from list source `apollo_oct_upload` and re-verify its un-contacted leads (no list-source object in the API; done in the enrichment tool).",
+      "id": "Kestrel:bad_data:5",
+      "workspace": "Kestrel",
+      "cause": "bad_data",
+      "confidence": "High",
+      "auto": false,
+      "status": "manual"
+    },
+    {
+      "kind": "api",
+      "operation": "remove_sender_emails",
+      "why": "Pull dan@kestrelreach-hq.com, eve@kestrelreach-hq.com, kai@kestrelreach-hq.com, zoe@kestrelreach-hq.com out of campaign 201 (EmailBison has no domain-level pause).",
+      "method": "DELETE",
+      "path": "/api/campaigns/201/remove-sender-emails",
+      "body": {
+        "sender_email_ids": [
+          409,
+          410,
+          411,
+          412
+        ]
+      },
+      "id": "Kestrel:auth:1",
+      "workspace": "Kestrel",
+      "cause": "auth",
+      "confidence": "High",
+      "auto": false,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "remove_sender_emails",
+      "why": "Pull dan@kestrelreach-hq.com, eve@kestrelreach-hq.com, kai@kestrelreach-hq.com, zoe@kestrelreach-hq.com out of campaign 202 (EmailBison has no domain-level pause).",
+      "method": "DELETE",
+      "path": "/api/campaigns/202/remove-sender-emails",
+      "body": {
+        "sender_email_ids": [
+          409,
+          410,
+          411,
+          412
+        ]
+      },
+      "id": "Kestrel:auth:2",
+      "workspace": "Kestrel",
+      "cause": "auth",
+      "confidence": "High",
+      "auto": false,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "create_tag",
+      "why": "Make the cause filterable in EmailBison.",
+      "method": "POST",
+      "path": "/api/tags",
+      "body": {
+        "name": "bounce:auth"
+      },
+      "id": "Kestrel:auth:3",
+      "workspace": "Kestrel",
+      "cause": "auth",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "attach_tags_to_sender_emails",
+      "why": "Tag affected inboxes `bounce:auth`.",
+      "method": "POST",
+      "path": "/api/tags/attach-to-sender-emails",
+      "body": {
+        "tag_ids": [
+          "<id of bounce:auth>"
+        ],
+        "sender_email_ids": [
+          409,
+          410,
+          411,
+          412
+        ]
+      },
+      "id": "Kestrel:auth:4",
+      "workspace": "Kestrel",
+      "cause": "auth",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "bulk_update_daily_limits",
+      "why": "Bring hot inboxes back under the safe cap.",
+      "method": "PATCH",
+      "path": "/api/sender-emails/daily-limits/bulk",
+      "body": {
+        "sender_email_ids": [
+          406,
+          403,
+          402
+        ],
+        "daily_limit": 50
+      },
+      "id": "Kestrel:throttling:1",
+      "workspace": "Kestrel",
+      "cause": "throttling",
+      "confidence": "High",
+      "auto": false,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "create_tag",
+      "why": "Make the cause filterable in EmailBison.",
+      "method": "POST",
+      "path": "/api/tags",
+      "body": {
+        "name": "bounce:throttling"
+      },
+      "id": "Kestrel:throttling:2",
+      "workspace": "Kestrel",
+      "cause": "throttling",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "attach_tags_to_sender_emails",
+      "why": "Tag affected inboxes `bounce:throttling`.",
+      "method": "POST",
+      "path": "/api/tags/attach-to-sender-emails",
+      "body": {
+        "tag_ids": [
+          "<id of bounce:throttling>"
+        ],
+        "sender_email_ids": [
+          402,
+          403,
+          406
+        ]
+      },
+      "id": "Kestrel:throttling:3",
+      "workspace": "Kestrel",
+      "cause": "throttling",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "toggle_variant",
+      "why": "Deactivate `Kestrel - Ops leaders Q4 / step 1 variant B`.",
+      "method": "PATCH",
+      "path": "/api/campaigns/v1.1/sequence-steps/8002/activate-or-deactivate",
+      "body": {
+        "active": false
+      },
+      "id": "Kestrel:content:1",
+      "workspace": "Kestrel",
+      "cause": "content",
+      "confidence": "High",
+      "auto": false,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "create_tag",
+      "why": "Make the cause filterable in EmailBison.",
+      "method": "POST",
+      "path": "/api/tags",
+      "body": {
+        "name": "bounce:content"
+      },
+      "id": "Kestrel:content:2",
+      "workspace": "Kestrel",
+      "cause": "content",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "attach_tags_to_campaigns",
+      "why": "Tag campaign(s) `bounce:content`.",
+      "method": "POST",
+      "path": "/api/tags/attach-to-campaigns",
+      "body": {
+        "tag_ids": [
+          "<id of bounce:content>"
+        ],
+        "campaign_ids": [
+          "201"
+        ]
+      },
+      "id": "Kestrel:content:3",
+      "workspace": "Kestrel",
+      "cause": "content",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "create_tag",
+      "why": "Make the cause filterable in EmailBison.",
+      "method": "POST",
+      "path": "/api/tags",
+      "body": {
+        "name": "bounce:recipient-gateway"
+      },
+      "id": "Kestrel:recipient_gateway:1",
+      "workspace": "Kestrel",
+      "cause": "recipient_gateway",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    },
+    {
+      "kind": "api",
+      "operation": "attach_tags_to_leads",
+      "why": "Tag bounced leads `bounce:recipient-gateway`.",
+      "method": "POST",
+      "path": "/api/tags/attach-to-leads",
+      "body": {
+        "tag_ids": [
+          "<id of bounce:recipient-gateway>"
+        ],
+        "lead_ids": [
+          10089,
+          10186,
+          10391,
+          10623,
+          10652,
+          10730,
+          10866,
+          11158,
+          11394,
+          11884,
+          13328,
+          14020,
+          14516,
+          14676,
+          14894,
+          15818,
+          16047,
+          16170,
+          16391,
+          16416,
+          16534,
+          16856,
+          16935,
+          16964,
+          17013,
+          17035,
+          17061,
+          17291,
+          17409,
+          18537,
+          18593,
+          19035,
+          19185,
+          19437,
+          19454,
+          19743,
+          20509,
+          20612,
+          5422,
+          5453,
+          5776,
+          5817,
+          6297,
+          6330,
+          6552,
+          6558,
+          6849,
+          7031,
+          7052,
+          7983,
+          8180,
+          8202,
+          8524,
+          8640,
+          8930,
+          8969,
+          9150,
+          9356,
+          9379,
+          9526,
+          9775
+        ]
+      },
+      "id": "Kestrel:recipient_gateway:2",
+      "workspace": "Kestrel",
+      "cause": "recipient_gateway",
+      "confidence": "High",
+      "auto": true,
+      "status": "dry_run"
+    }
+  ]
+}

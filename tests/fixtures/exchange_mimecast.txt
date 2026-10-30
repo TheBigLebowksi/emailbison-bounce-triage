@@ -1,0 +1,10 @@
+Your message to casey.berg@northfreight.com couldn't be delivered.
+
+Your message wasn't delivered because the recipient's email provider rejected it.
+
+Diagnostic information for administrators:
+
+Generating server: BN8PR12MB3456.namprd12.prod.outlook.com
+
+casey.berg@northfreight.com
+Remote Server returned '<us-smtp-inbound-1.mimecast.com #5.0.0 smtp; 550 Administrative prohibition - envelope blocked - https://community.mimecast.com/docs/DOC-1369#550 [aB3dE5fG7hI9jK1lM3nO5p.us123]>'
